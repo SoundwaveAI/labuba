@@ -7,6 +7,7 @@ int main() {
   size_t rows = 0, cols = 0;
   std::cin >> rows >> cols;
   if (!std::cin) {
+    remove(m, rows, cols);
     return 1;
   }
   int ** m = create(rows, cols);
