@@ -39,6 +39,33 @@ void output(const int * const * m, size_t rows, size_t cols) {
     }
   }
 }
+int** convert(const int* t, size_t n, const size_t* lns, size_t rows) {
+  if (t == nullptr || lns == nullptr || rows == 0) {
+      return nullptr;
+  }
+  int** result = new int*[rows];
+  size_t i = 0;
+  try {
+    size_t current_index = 0;
+    for (i = 0; i < rows; ++i) {
+      result[i] = new int[lns[i]];
+      for (size_t j = 0; j < lns[i]; ++j) {
+        if (current_index < n) {
+          result[i][j] = t[current_index++];
+        } else {
+          result[i][j] = 0; 
+        }
+      }
+    }
+  } catch (...) {
+    for (size_t j = 0; j < i; ++j) {
+      delete[] result[j];
+    }
+    delete[] result;
+    throw;
+  }
+  return result;
+}
 int main()  {
   size_t rows = 0, cols = 0;
   std::cin >> rows >> cols;
